@@ -47,7 +47,7 @@ public class MainActivity extends Activity implements NetChangeObserver,EventObs
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        urls.add("http://dlied5.myapp.com/myapp/1104466820/sgame/2017_com.tencent.tmgp.sgame_h178_1.41.2.16_5a7ef8.apk");
+//        urls.add("http://dlied5.myapp.com/myapp/1104466820/sgame/2017_com.tencent.tmgp.sgame_h178_1.41.2.16_5a7ef8.apk");
         urls.add("http://gdownyf.baijincdn.cn/data/wisegame/d3cfcbced1a50905/meituan_697.apk");
         urls.add("http://gdownyf.baijincdn.cn/data/wisegame/7755dede9585bf18/yingyongbao_7292130.apk");
         urls.add("http://gdownyf.baijincdn.cn/data/wisegame/6b9bb3afc505fdee/qichezhijia_965.apk");

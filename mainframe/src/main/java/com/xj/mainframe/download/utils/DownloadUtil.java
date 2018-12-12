@@ -22,6 +22,7 @@ import okhttp3.Response;
  */
 
 public class DownloadUtil extends DownloadB {
+    private static final String END="ing";
     private int faileSize = 0;
     private boolean isPasue = false;
     private boolean isDelete = false;
@@ -82,9 +83,11 @@ public class DownloadUtil extends DownloadB {
                 if (model.getFileSize() > 0 && model.getFileSize() != contentLength) {
                     //文件存在但文件大小已改变删除文件
                     Utils.deleteFile(model.getSavePath());
+                    //删除缓冲文件
+                    Utils.deleteFile(model.getSavePath()+END);
                 }
                 //创建一个文件
-                File file = new File(model.getSavePath());
+                File file = new File(model.getSavePath()+END);
                 if (file.exists()) {
                     //文件存在，得到文件的大小
                     downloadLength = file.length();
@@ -136,7 +139,10 @@ public class DownloadUtil extends DownloadB {
                                 return;
                             }
                         }
+                        //下载完成修改文件名后缀
+                        file.renameTo(new File(model.getSavePath()));
                         if (getListener() != null) getListener().onSuccess(model.getPath());
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -180,6 +186,7 @@ public class DownloadUtil extends DownloadB {
                     getListener().onFailed(model.getPath());
                     //重复下载均出现失败，删除项目，标记下载项目为错误
                     StringUtils.deleteFile(model.getSavePath());
+                    StringUtils.deleteFile(model.getSavePath()+END);
                     isStart=false;
                 }
             }else {
