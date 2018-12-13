@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.xj.framedemo3.service.KeepAliveService;
 import com.xj.framedemo3.testrefuresh.ScrollingActivity;
 import com.xj.mainframe.configer.APPLog;
 import com.xj.mainframe.configer.ToastUtils;
@@ -46,6 +47,8 @@ public class MainActivity extends Activity implements NetChangeObserver,EventObs
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        startService(new Intent(this,KeepAliveService.class));
 
 //        urls.add("http://dlied5.myapp.com/myapp/1104466820/sgame/2017_com.tencent.tmgp.sgame_h178_1.41.2.16_5a7ef8.apk");
         urls.add("http://gdownyf.baijincdn.cn/data/wisegame/d3cfcbced1a50905/meituan_697.apk");

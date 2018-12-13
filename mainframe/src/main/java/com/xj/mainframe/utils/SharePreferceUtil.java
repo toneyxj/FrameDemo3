@@ -26,8 +26,7 @@ public class SharePreferceUtil {
     private SharePreferceUtil(Context context) {
         // Preferences对象
         shareprefece = context.getSharedPreferences("pactrera",
-                Context.MODE_APPEND + Context.MODE_WORLD_READABLE
-                        + Context.MODE_WORLD_WRITEABLE);
+                Context.MODE_PRIVATE);
         editor = shareprefece.edit();
     }
 

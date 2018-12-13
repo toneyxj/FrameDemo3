@@ -33,11 +33,13 @@ import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.tencent.smtt.utils.TbsLog;
 import com.xj.mainframe.R;
+import com.xj.mainframe.base.BaseUtils;
 import com.xj.mainframe.configer.APPLog;
 import com.xj.mainframe.configer.ToastUtils;
+import com.xj.mainframe.listener.HandlerMessageInterface;
 import com.xj.mainframe.webX5.utils.X5WebView;
 
-public class BrowserActivity extends Activity {
+public class BrowserActivity extends Activity implements HandlerMessageInterface {
 	public static void StartBrowser(@NonNull Context context, String url,boolean isBrowser){
 		if (url==null||url.trim().isEmpty())return;
 
@@ -422,10 +424,17 @@ public class BrowserActivity extends Activity {
 	public static final int MSG_INIT_UI = 1;
 	private final int mUrlStartNum = 0;
 	private int mCurrentUrl = mUrlStartNum;
-	private Handler mTestHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
+	private BaseUtils.XJHander mTestHandler =new BaseUtils.XJHander(this);
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString("url",mHomeUrl);
+	}
+
+	@Override
+	public void handleMessage(Message msg) {
+		switch (msg.what) {
 			case MSG_OPEN_TEST_URL:
 				if (!mNeedTestPage) {
 					return;
@@ -442,14 +451,6 @@ public class BrowserActivity extends Activity {
 			case MSG_INIT_UI:
 				init();
 				break;
-			}
-			super.handleMessage(msg);
 		}
-	};
-
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putString("url",mHomeUrl);
 	}
 }

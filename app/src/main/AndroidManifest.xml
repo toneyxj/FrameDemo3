@@ -10,28 +10,46 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TestEdite"
+        <activity
+            android:name=".TestEdite"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"></activity>
         <activity android:name=".testrefuresh.TestOneActivity" />
         <activity
             android:name=".testrefuresh.ScrollingActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".testrefuresh.TestTwoActivity"></activity>
-        <service android:name=".myInitService"/>
+        <activity android:name=".testrefuresh.TestTwoActivity" />
+
+        <service android:name=".myInitService" />
+
+        <activity android:name=".LockActivity"
+            android:theme="@style/LockScreenBase"
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleInstance"
+            android:taskAffinity="com.xj.name.lockscreen"
+            android:noHistory="true"/>
+
+        <service
+            android:name=".service.KeepAliveService"
+            android:enabled="true" >
+            <intent-filter android:priority="1000" >
+                <action android:name="com.service.KeepAliveService" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

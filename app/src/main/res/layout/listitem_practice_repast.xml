@@ -32,8 +32,8 @@
             android:id="@+id/nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/back_color"
             android:layout_marginTop="@dimen/padding_common_d"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             tools:text="小花"/>
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_common_h"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/back_color"
             tools:text="香煎蛋果儿"/>
 
     </LinearLayout>
