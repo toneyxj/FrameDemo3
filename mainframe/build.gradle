@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+//基本框架处理模块
 android {
     compileSdkVersion 28
 

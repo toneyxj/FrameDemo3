@@ -15,17 +15,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".TestEdite"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"></activity>
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
         <activity android:name=".testrefuresh.TestOneActivity" />
         <activity
             android:name=".testrefuresh.ScrollingActivity"
@@ -34,22 +30,31 @@
 
         <service android:name=".myInitService" />
 
-        <activity android:name=".LockActivity"
-            android:theme="@style/LockScreenBase"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".LockActivity"
             android:excludeFromRecents="true"
             android:exported="false"
             android:launchMode="singleInstance"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
             android:taskAffinity="com.xj.name.lockscreen"
-            android:noHistory="true"/>
+            android:theme="@style/LockScreenBase" />
 
         <service
             android:name=".service.KeepAliveService"
-            android:enabled="true" >
-            <intent-filter android:priority="1000" >
+            android:enabled="true">
+            <intent-filter android:priority="1000">
                 <action android:name="com.service.KeepAliveService" />
             </intent-filter>
         </service>
+
+        <activity android:name=".BlueThoothActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

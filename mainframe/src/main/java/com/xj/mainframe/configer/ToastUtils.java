@@ -20,11 +20,6 @@ public class ToastUtils {
     private int bottomHeight=108;
     private View view;
 
-    /**
-     * 获得软键盘弹出类实列
-     *
-     * @return 返回初始化实列
-     */
     public static ToastUtils getInstance() {
         if (instatnce == null) {
             synchronized (ToastUtils.class) {

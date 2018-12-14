@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+//列表数据显示处理模块
 android {
     compileSdkVersion 28
 
