@@ -1,4 +1,4 @@
-package com.xj.bluetooth.status;
+package com.xj.bluetooth.Drive;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Message;
-import android.util.Log;
 
 import com.xj.bluetooth.BlueToothInterface.DeciceConnectListener;
 import com.xj.bluetooth.BlueToothInterface.DeviceStatus;
@@ -19,6 +18,9 @@ import com.xj.bluetooth.utils.BaseUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 本类主要完成蓝牙的连接与蓝牙的状态切换
+ */
 public class BlueToothStatus implements DeviceStatus, HandlerBlueToothInterface {
     private List<DeviceModel> listBTs = new ArrayList<>();
     private BluetoothAdapter bluetoothAdapter;
@@ -33,6 +35,11 @@ public class BlueToothStatus implements DeviceStatus, HandlerBlueToothInterface 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         //观察蓝牙关闭与开启
         hander.sendEmptyMessageDelayed(100, 500);
+    }
+
+    @Override
+    public Object getDeviceAdapter() {
+        return bluetoothAdapter;
     }
 
     @Override

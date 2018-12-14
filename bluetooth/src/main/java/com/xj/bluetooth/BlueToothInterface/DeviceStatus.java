@@ -3,9 +3,14 @@ package com.xj.bluetooth.BlueToothInterface;
 import android.content.Context;
 
 /**
- * 设备状态
+ * 设备状态基本控制类
  */
 public interface DeviceStatus {
+    /**
+     * 获得设备的adapter
+     * @return
+     */
+    Object getDeviceAdapter();
     /**
      * 判断是否有设备模块
      * @return 没有返回true
