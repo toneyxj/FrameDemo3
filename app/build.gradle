@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.xj.framedemo3"
-        minSdkVersion 15
-        targetSdkVersion 28
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //AbstractProcessor 注解
         externalNativeBuild {
             cmake {
                 cppFlags ""
@@ -16,8 +18,15 @@ android {
         }
     }
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+        }
+        release {
+            minifyEnabled rootProject.ext.minifyEnabled
+            zipAlignEnabled true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -25,6 +34,10 @@ android {
         cmake {
             path "CMakeLists.txt"
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -37,4 +50,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':mainframe')
     implementation project(':bluetooth')
+//    implementation 'com.google.auto.service:auto-service:1.0-rc4'
+
+    implementation 'com.jakewharton:butterknife-compiler:9.0.0-rc3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc3'
 }

@@ -14,6 +14,8 @@ import com.xj.mainframe.request.Listener.RequestInterface;
 import com.xj.mainframe.request.Listener.RequestObserver;
 import com.xj.mainframe.view.listener.LoadingInterface;
 
+import java.lang.ref.WeakReference;
+
 /**
  * 数据请求基本够着类
  * Created by xj on 2018/11/7.
@@ -22,20 +24,19 @@ import com.xj.mainframe.view.listener.LoadingInterface;
 public abstract class BaseRequest implements RequestInterface, RequestObserver {
     private Context context;
     private boolean isFinish = false;
-    private LoadingInterface loding;
+    private WeakReference<LoadingInterface> loding;
     private Dialog dialog;
     private RequestModel model;
 
     public BaseRequest(@NonNull Context context, LoadingInterface loding) {
-        isFinish = false;
         this.context = context;
-        this.loding = loding;
+        this.loding = new WeakReference<>(loding);
         if (getLoadingInterface() != null) getLoadingInterface().setListener(clickListener);
         RequestManager.getInstance().registerObserver(this);
     }
 
     public void setLoding(LoadingInterface loding) {
-        this.loding = loding;
+        this.loding = new WeakReference<>(loding);
     }
 
     @Override
@@ -67,14 +68,14 @@ public abstract class BaseRequest implements RequestInterface, RequestObserver {
 
     @Override
     public LoadingInterface getLoadingInterface() {
-        return loding;
+        return loding.get();
     }
 
     @Override
     public void hideShow() {
         if (isFinish) return;
-        if (loding != null) {
-            loding.hideLayout();
+        if (getLoadingInterface() != null) {
+            getLoadingInterface().hideLayout();
         }
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
@@ -86,8 +87,11 @@ public abstract class BaseRequest implements RequestInterface, RequestObserver {
     @Override
     public void onStopRequest() {
         isFinish = true;
+        APPLog.e("onStopRequest");
         RequestManager.getInstance().removeObserver(this);
-        loding = null;
+        if (getLoadingInterface() != null) {
+            getLoadingInterface().setListener(null);
+        }
         hideShow();
         context = null;
     }

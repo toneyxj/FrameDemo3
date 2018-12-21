@@ -33,7 +33,7 @@ public class TestRequest extends BaseRequest {
                 .addParameter("end", "5")
                 .isGet()
                 .setCanCache(true)
-                .setShowLoidingLayout(false)
+                .setShowLoidingLayout(true)
                 .Builder();
     }
 

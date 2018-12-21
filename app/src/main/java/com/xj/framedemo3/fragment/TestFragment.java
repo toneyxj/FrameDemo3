@@ -130,6 +130,8 @@ public class TestFragment extends Fragment implements HandlerMessageInterface {
     public void onDestroy() {
         super.onDestroy();
         hander.removeCallbacksAndMessages(null);
+        testRequest.onStopRequest();
+
         APPLog.e("fragment-onDestroy",Title+"：onDestroy");
     }
 

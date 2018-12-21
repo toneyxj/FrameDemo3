@@ -1,1 +1,1 @@
-include ':app', ':applypermission', ':mainframe', ':refuresh_layout', ':bluetooth'
+include ':app', ':applypermission', ':mainframe', ':refuresh_layout', ':bluetooth', ':MyAnnotation'

@@ -49,6 +49,7 @@ public class ModelUtils {
                 }});
     }
     public static class Model {
+
         public int imageId;
         public int avatarId;
         public String name;

@@ -75,7 +75,7 @@ public class RequestManager implements Observerable {
 
     @Override
     public void removeObserver(RequestObserver observer) {
-        observers.remove(observer);
+        APPLog.e("remove(observer)",observers.remove(observer));
     }
     private RequestObserver getRequestObserver(RequestModel model){
         if (model==null)return null;

@@ -61,12 +61,11 @@ public class BaseApplication extends Application {
     }
 
     /**
-     * 在fragment ondestory里面执行
-     *
+     * 注册界面后者activity
      * @return
      */
-    public static void onDestoryFtagment(Fragment fragment) {
+    public static void watchObject(Object obj) {
         if (refWatcher == null) return;
-        refWatcher.watch(fragment);
+        refWatcher.watch(obj);
     }
 }
