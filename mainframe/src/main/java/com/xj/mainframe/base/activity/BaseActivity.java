@@ -12,6 +12,8 @@ import com.xj.applypermission.AcpListener;
 import com.xj.applypermission.AcpOptions;
 import com.xj.mainframe.base.BaseUtils;
 import com.xj.mainframe.configer.ToastUtils;
+import com.xj.mainframe.eventBus.EventManger;
+import com.xj.mainframe.eventBus.EventObserver;
 import com.xj.mainframe.listener.BaseActivityInterface;
 import com.xj.mainframe.listener.HandlerMessageInterface;
 import com.xj.mainframe.listener.XJOnClickListener;
@@ -22,8 +24,8 @@ import com.xj.mainframe.view.listener.TitleInterface;
  * activity基本控制类
  * Created by xj on 2018/10/25.
  */
-public abstract class BaseActivity extends FragmentActivity implements BaseActivityInterface,HandlerMessageInterface
-,TitleInterface {
+public abstract class BaseActivity extends FragmentActivity implements BaseActivityInterface, HandlerMessageInterface
+        , TitleInterface {
     /**
      * fragment控制器
      */
@@ -32,7 +34,7 @@ public abstract class BaseActivity extends FragmentActivity implements BaseActiv
     /**
      * 点击事件处理
      */
-    public XJOnClickListener clickListener=new XJOnClickListener() {
+    public XJOnClickListener clickListener = new XJOnClickListener() {
         @Override
         public void onclickView(View view) {
             BaseActivity.this.onclickView(view);
@@ -57,13 +59,15 @@ public abstract class BaseActivity extends FragmentActivity implements BaseActiv
 
     /**
      * 显示提示
+     *
      * @param value
      */
     public void showToast(Object value) {
-        if(!isFinishing()) {
+        if (!isFinishing()) {
             ToastUtils.getInstance().showToastShort(value);
         }
     }
+
     /**
      * 点击其它地方关闭软键盘
      */

@@ -59,6 +59,7 @@ public class ToastUtils {
      * @param value
      */
     public void showToast(Object value,boolean isLong,boolean iscenter) {
+        if (toast==null)return;
         toast.setDuration(isLong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT);
         toast.setGravity(iscenter ? Gravity.CENTER : Gravity.BOTTOM, 0, iscenter ? 0 :bottomHeight);
 //        toast.setText(value.toString());

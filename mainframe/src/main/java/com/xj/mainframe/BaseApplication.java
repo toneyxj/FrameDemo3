@@ -55,7 +55,6 @@ public class BaseApplication extends Application {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
-        ToastUtils.getInstance().initToast(getApplicationContext());
         context=getApplicationContext();
         refWatcher = LeakCanary.install(this);
     }

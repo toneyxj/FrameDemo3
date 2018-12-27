@@ -37,6 +37,7 @@ import com.xj.mainframe.base.BaseUtils;
 import com.xj.mainframe.configer.APPLog;
 import com.xj.mainframe.configer.ToastUtils;
 import com.xj.mainframe.listener.HandlerMessageInterface;
+import com.xj.mainframe.utils.StatusBarUtil;
 import com.xj.mainframe.webX5.utils.X5WebView;
 
 public class BrowserActivity extends Activity implements HandlerMessageInterface {
@@ -111,6 +112,7 @@ public class BrowserActivity extends Activity implements HandlerMessageInterface
 		mTestHandler.sendEmptyMessageDelayed(MSG_INIT_UI, 10);
 
 		findViewById(R.id.toolbar1).setVisibility(isBrowser?View.VISIBLE:View.GONE);
+		StatusBarUtil.darkMode(this);
 	}
 
 	private void changGoForwardButton(WebView view) {
@@ -415,11 +417,18 @@ public class BrowserActivity extends Activity implements HandlerMessageInterface
 	protected void onDestroy() {
 		if (mTestHandler != null)
 			mTestHandler.removeCallbacksAndMessages(null);
-		if (mWebView != null)
-			mWebView.destroy();
+		destroyWebView();
+		android.os.Process.killProcess(android.os.Process.myPid());
 		super.onDestroy();
 	}
-
+	private void destroyWebView() {
+		if (mWebView != null) {
+			mWebView.pauseTimers();
+			mWebView.removeAllViews();
+			mWebView.destroy();
+			mWebView = null;
+		}
+	}
 	public static final int MSG_OPEN_TEST_URL = 0;
 	public static final int MSG_INIT_UI = 1;
 	private final int mUrlStartNum = 0;

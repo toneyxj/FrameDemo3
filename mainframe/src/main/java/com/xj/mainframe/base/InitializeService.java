@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.tencent.smtt.sdk.QbSdk;
 import com.xj.mainframe.configer.APPLog;
+import com.xj.mainframe.configer.ToastUtils;
 
 /**
  * Created by xj on 2018/11/15.
@@ -38,6 +39,7 @@ public abstract class InitializeService extends IntentService {
 
     private void performInit() {
         APPLog.d("performInit begin:" + System.currentTimeMillis());
+        ToastUtils.getInstance().initToast(getApplicationContext());
         //X5内核
         QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
 
