@@ -24,19 +24,19 @@ import java.lang.ref.WeakReference;
 public abstract class BaseRequest implements RequestInterface, RequestObserver {
     private Context context;
     private boolean isFinish = false;
-    private WeakReference<LoadingInterface> loding;
+    private LoadingInterface loding;
     private Dialog dialog;
     private RequestModel model;
 
     public BaseRequest(@NonNull Context context, LoadingInterface loding) {
-        this.context = context;
-        this.loding = new WeakReference<>(loding);
+        this.context =context;
+        this.loding = loding;
         if (getLoadingInterface() != null) getLoadingInterface().setListener(clickListener);
         RequestManager.getInstance().registerObserver(this);
     }
 
     public void setLoding(LoadingInterface loding) {
-        this.loding = new WeakReference<>(loding);
+        this.loding = loding;
     }
 
     @Override
@@ -55,12 +55,12 @@ public abstract class BaseRequest implements RequestInterface, RequestObserver {
 
     @Override
     public void showToast() {
-        if (isFinish) return;
+        if (isFinish||getContext()==null) return;
         if (getLoadingInterface() != null) {
             getLoadingInterface().showLoading();
         } else if (context != null) {
             if (dialog == null || !dialog.isShowing()) {
-                dialog = LodingDialog.getDialog(context);
+                dialog = LodingDialog.getDialog(getContext());
             }
         }
 
@@ -68,7 +68,7 @@ public abstract class BaseRequest implements RequestInterface, RequestObserver {
 
     @Override
     public LoadingInterface getLoadingInterface() {
-        return loding.get();
+        return loding;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.xj.mainframe.base.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,9 +22,14 @@ public abstract class  BaseFragment extends Fragment implements FragmentInterfac
 
     private BaseUtils.XJHander hander=new BaseUtils.XJHander(this);
     private View rootView;
-
+    private boolean isFinish;
+        @Override
     public View getRootView() {
         return rootView;
+    }
+
+    public boolean isFinish() {
+        return isFinish;
     }
 
     @Override
@@ -35,15 +41,13 @@ public abstract class  BaseFragment extends Fragment implements FragmentInterfac
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(getLayoutID(), container);
-        initView(rootView);
+       if (rootView==null) {
+           rootView = inflater.inflate(getLayoutID(), container, false);
+           initView(rootView);
+       }
         return rootView;
     }
 
-    @Override
-    public void handleMessage(Message msg) {
-
-    }
 
     /**
      * 点击事件处理
@@ -54,9 +58,37 @@ public abstract class  BaseFragment extends Fragment implements FragmentInterfac
             BaseFragment.this.onclickView(view);
         }
     };
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         hander.removeCallbacksAndMessages(null);
+        isFinish=true;
+        rootView=null;
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+
+    }
+
+    @Override
+    public void onclickView(View view) {
+
+    }
+
+    @Override
+    public void requestData() {
+
+    }
+
+    @Override
+    public Handler getHandler() {
+        return hander;
     }
 }

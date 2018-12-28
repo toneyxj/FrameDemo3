@@ -32,6 +32,7 @@ public class ToastUtils {
     }
 
     public void  initToast(Context context){
+        context=context.getApplicationContext();
         toast=Toast.makeText(context,"",Toast.LENGTH_SHORT);
         bottomHeight= (int) (DensityUtil.getScreenH(context)*0.1);
         if (bottomHeight<=0)bottomHeight=108;

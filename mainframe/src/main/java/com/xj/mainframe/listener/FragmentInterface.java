@@ -1,6 +1,7 @@
 package com.xj.mainframe.listener;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 /**
@@ -33,5 +34,12 @@ public interface FragmentInterface {
      * 主要数据请求
      */
     void requestData();
+
+    /**
+     * 获得fragment根view
+     * @return
+     */
+    View getRootView();
+    Handler getHandler();
 
 }
