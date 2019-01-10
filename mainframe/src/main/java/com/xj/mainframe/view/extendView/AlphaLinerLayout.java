@@ -4,7 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.xj.mainframe.view.listener.ViewAlphaInterface;
 import com.xj.mainframe.view.utils.ViewGroupAlphaUtil;
@@ -53,5 +56,6 @@ public class AlphaLinerLayout extends LinearLayout {
         super.onDetachedFromWindow();
         viewAlpha.onDestory();
     }
+
 }
 

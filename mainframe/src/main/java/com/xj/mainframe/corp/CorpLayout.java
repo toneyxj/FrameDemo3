@@ -1,6 +1,7 @@
 package com.xj.mainframe.corp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,8 +10,12 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Xfermode;
 import android.util.AttributeSet;
+import android.widget.AbsoluteLayout;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 
 import com.xj.mainframe.utils.ImageLoadUtils;
 
@@ -42,8 +47,7 @@ public class CorpLayout extends FrameLayout {
         corpView = new CorpView(getContext());
         corpView.setLayoutParams(params);
 
-
-        corpImageView = new CorpImageView(getContext());
+                corpImageView = new CorpImageView(getContext());
         corpImageView.setLayoutParams(params);
         corpImageView.setScaleType(ImageView.ScaleType.MATRIX);
 

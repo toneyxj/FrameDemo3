@@ -1,9 +1,12 @@
 package com.xj.framedemo3.testrefuresh;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.ViewGroup;
 
 import com.xj.framedemo3.R;
 import com.xj.framedemo3.fragment.mFragmentPagerAdapter;
@@ -17,7 +20,7 @@ public class ScrollingActivity extends FragmentActivity {
     private ViewPager viewPager;
     private mFragmentPagerAdapter mFragPAdapter;
     private TitleView title_view;
-
+private Handler handler=new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,7 @@ public class ScrollingActivity extends FragmentActivity {
     }
 
     private void initView() {
+        handler.sendEmptyMessageDelayed(1,10000);
         title_view = (TitleView) findViewById(R.id.title_view);
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         viewPager = (ViewPager) findViewById(R.id.viewPager);

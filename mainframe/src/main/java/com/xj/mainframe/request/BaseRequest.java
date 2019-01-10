@@ -34,6 +34,12 @@ public abstract class BaseRequest implements RequestInterface, RequestObserver {
         if (getLoadingInterface() != null) getLoadingInterface().setListener(clickListener);
         RequestManager.getInstance().registerObserver(this);
     }
+    public BaseRequest(@NonNull Context context) {
+        this.context =context;
+        this.loding = null;
+        if (getLoadingInterface() != null) getLoadingInterface().setListener(clickListener);
+        RequestManager.getInstance().registerObserver(this);
+    }
 
     public void setLoding(LoadingInterface loding) {
         this.loding = loding;

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xj.mainframe.base.BaseUtils;
+import com.xj.mainframe.configer.APPLog;
 import com.xj.mainframe.listener.FragmentInterface;
 import com.xj.mainframe.listener.HandlerMessageInterface;
 import com.xj.mainframe.listener.XJOnClickListener;
@@ -18,12 +19,15 @@ import com.xj.mainframe.listener.XJOnClickListener;
  * Created by xj on 2018/11/7.
  */
 
-public abstract class  BaseFragment extends Fragment implements FragmentInterface,HandlerMessageInterface {
+public abstract class BaseFragment extends Fragment implements FragmentInterface, HandlerMessageInterface {
 
-    private BaseUtils.XJHander hander=new BaseUtils.XJHander(this);
+    private BaseUtils.XJHander hander = new BaseUtils.XJHander(this);
     private View rootView;
     private boolean isFinish;
-        @Override
+    private boolean isShow;
+    private int i=0;
+
+    @Override
     public View getRootView() {
         return rootView;
     }
@@ -38,13 +42,20 @@ public abstract class  BaseFragment extends Fragment implements FragmentInterfac
         initFragment(savedInstanceState);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getRootView() == null) return;
+        this.isShow = isVisibleToUser;
+        fragmentShowing(isShow);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       if (rootView==null) {
-           rootView = inflater.inflate(getLayoutID(), container, false);
-           initView(rootView);
-       }
+        APPLog.e("onCreateView"+"i="+i++);
+        rootView = inflater.inflate(getLayoutID(), container, false);
+        initView(rootView);
         return rootView;
     }
 
@@ -52,7 +63,7 @@ public abstract class  BaseFragment extends Fragment implements FragmentInterfac
     /**
      * 点击事件处理
      */
-    public XJOnClickListener clickListener=new XJOnClickListener() {
+    public XJOnClickListener clickListener = new XJOnClickListener() {
         @Override
         public void onclickView(View view) {
             BaseFragment.this.onclickView(view);
@@ -61,6 +72,7 @@ public abstract class  BaseFragment extends Fragment implements FragmentInterfac
 
     @Override
     public void onDestroyView() {
+        hander.removeCallbacksAndMessages(null);
         super.onDestroyView();
     }
 
@@ -68,8 +80,7 @@ public abstract class  BaseFragment extends Fragment implements FragmentInterfac
     public void onDestroy() {
         super.onDestroy();
         hander.removeCallbacksAndMessages(null);
-        isFinish=true;
-        rootView=null;
+        isFinish = true;
     }
 
     @Override
@@ -90,5 +101,10 @@ public abstract class  BaseFragment extends Fragment implements FragmentInterfac
     @Override
     public Handler getHandler() {
         return hander;
+    }
+
+    @Override
+    public boolean isShowFragment() {
+        return this.isShow;
     }
 }

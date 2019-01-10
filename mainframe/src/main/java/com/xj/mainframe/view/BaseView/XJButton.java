@@ -2,6 +2,7 @@ package com.xj.mainframe.view.BaseView;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.Button;
 
 /**
@@ -20,4 +21,5 @@ public class XJButton extends Button {
     public XJButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
+
 }

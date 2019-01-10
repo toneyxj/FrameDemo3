@@ -1,8 +1,10 @@
 package com.xj.framedemo3.fragment;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +23,8 @@ import com.xj.mainframe.adapter.BaseRecyclerAdapter;
 import com.xj.mainframe.adapter.SmartViewHolder;
 import com.xj.mainframe.base.BaseUtils;
 import com.xj.mainframe.base.SmartLayoutUtils;
+import com.xj.mainframe.base.activity.BaseActivity;
+import com.xj.mainframe.base.fragment.BaseFragment;
 import com.xj.mainframe.configer.APPLog;
 import com.xj.mainframe.configer.ToastUtils;
 import com.xj.mainframe.eventBus.EventManger;
@@ -34,11 +38,10 @@ import com.xj.refuresh.listener.OnRefreshLoadMoreListener;
  * Created by xj on 2018/10/29.
  */
 
-public class TestFragment extends Fragment implements HandlerMessageInterface {
+public class TestFragment extends BaseFragment implements HandlerMessageInterface {
     private String Title;
     //可以根据这个修改item里面的内容
     private RecyclerView recyclerView;
-    private BaseUtils.XJHander hander;
 
     public void setTitle(String title) {
         Title = title;
@@ -49,38 +52,63 @@ public class TestFragment extends Fragment implements HandlerMessageInterface {
     private BaseRecyclerAdapter<ModelUtils.Model> mAdapter;
 
     private TestRequest testRequest;
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //拿到fragment的view，之后实例化recyclerView，然后创建适配器，再挂上recyclerView
-        View view = inflater.inflate(R.layout.fragment, container, false);
+    public void onDestroyView() {
+        super.onDestroyView();
+        APPLog.e("onDestroyView"+Title);
+        testRequest.onStopRequest();
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        APPLog.e("setUserVisibleHint"+Title+"    isVisibleToUser="+isVisibleToUser);
+    }
+
+    @Override
+    public void initFragment(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void fragmentShowing(boolean is) {
+
+    }
+
+    @Override
+    public void initView(View view) {
+        StringBuilder builder;
+        StringBuffer buffer;
         refreshLayout = (SmartRefreshLayout) view.findViewById(R.id.refreshLayout);
-        hander=new BaseUtils.XJHander(this);
         layoutUtils=new SmartLayoutUtils(refreshLayout, new OnRefreshLoadMoreListener() {
             @Override
-            public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
-                hander.postDelayed(new Runnable() {
+            public void onLoadMore(@NonNull  RefreshLayout refreshLayout) {
+                getHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         APPLog.e("刷新二");
                         ToastUtils.getInstance().showToastShort(mAdapter.getCount());
                         if (mAdapter.getCount() > 12) {
                             Toast.makeText(getContext(), "数据全部加载完毕", Toast.LENGTH_SHORT).show();
-                            refreshLayout.finishLoadMoreWithNoMoreData();//设置之后，将不会再触发加载事件
+                            TestFragment.this.refreshLayout.finishLoadMoreWithNoMoreData();//设置之后，将不会再触发加载事件
                         } else {
                             mAdapter.loadMore(ModelUtils.loadModels());
-                            refreshLayout.finishLoadMore();
+                            TestFragment.this.refreshLayout.finishLoadMore();
                         }
                     }
                 }, 1000);
             }
             @Override
-            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+            public void onRefresh(@NonNull  RefreshLayout refreshLayout) {
                 APPLog.e("刷新一");
-                hander.postDelayed(new Runnable() {
+                getHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        refreshLayout.finishRefresh();
-                        refreshLayout.setNoMoreData(false);//恢复上拉状态
+                        TestFragment.this.refreshLayout.finishRefresh();
+                        TestFragment.this.refreshLayout.setNoMoreData(false);//恢复上拉状态
                     }
                 }, 2000);
 
@@ -104,7 +132,7 @@ public class TestFragment extends Fragment implements HandlerMessageInterface {
 
         testRequest=new TestRequest(getContext(),layoutUtils.getLoading());
 
-        hander.postDelayed(new Runnable() {
+        getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 testRequest.testRequest();
@@ -113,7 +141,7 @@ public class TestFragment extends Fragment implements HandlerMessageInterface {
         mAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                hander.postDelayed(new Runnable() {
+                getHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         EventManger.getInstance().notifiyCode(MainActivity.mainE,position);
@@ -122,21 +150,10 @@ public class TestFragment extends Fragment implements HandlerMessageInterface {
 
             }
         });
-
-        return view;
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        hander.removeCallbacksAndMessages(null);
-        testRequest.onStopRequest();
-
-        APPLog.e("fragment-onDestroy",Title+"：onDestroy");
-    }
-
-    @Override
-    public void handleMessage(Message msg) {
-
+    public int getLayoutID() {
+        return (R.layout.fragment);
     }
 }

@@ -1,6 +1,7 @@
 package com.xj.framedemo3;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xj.mainframe.configer.APPLog;
@@ -13,8 +14,15 @@ import com.xj.mainframe.view.listener.LoadingInterface;
  */
 
 public class TestRequest extends BaseRequest {
-    public TestRequest(Context context, LoadingInterface loding) {
+
+
+
+    public TestRequest(@NonNull Context context, LoadingInterface loding) {
         super(context, loding);
+    }
+
+    public TestRequest(@NonNull Context context) {
+        super(context);
     }
 
     @Override
@@ -33,7 +41,7 @@ public class TestRequest extends BaseRequest {
                 .addParameter("end", "5")
                 .isGet()
                 .setCanCache(true)
-                .setShowLoidingLayout(true)
+                .setShowLoidingLayout(false)
                 .Builder();
     }
 

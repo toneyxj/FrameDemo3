@@ -16,6 +16,11 @@ public interface FragmentInterface {
      * @param savedInstanceState
      */
     void initFragment(Bundle savedInstanceState);
+
+    /**
+     * fragment正在显示
+     */
+    void fragmentShowing(boolean is);
     /**
      *初始化view控件initActivity后执行
      */
@@ -40,6 +45,17 @@ public interface FragmentInterface {
      * @return
      */
     View getRootView();
+
+    /**
+     * 获得handler对象
+     * @return
+     */
     Handler getHandler();
+
+    /**
+     * 是否显示frament
+     * @return
+     */
+    boolean isShowFragment();
 
 }
