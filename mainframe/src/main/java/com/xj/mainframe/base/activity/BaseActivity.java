@@ -10,6 +10,7 @@ import android.view.View;
 import com.xj.applypermission.Acp;
 import com.xj.applypermission.AcpListener;
 import com.xj.applypermission.AcpOptions;
+import com.xj.mainframe.base.ActivityManagerUtils;
 import com.xj.mainframe.base.BaseUtils;
 import com.xj.mainframe.configer.ToastUtils;
 import com.xj.mainframe.eventBus.EventManger;
@@ -47,6 +48,7 @@ public abstract class BaseActivity extends FragmentActivity implements BaseActiv
         setContentView(getLayoutID());
         FM = getSupportFragmentManager();
         initActivity(savedInstanceState);
+        ActivityManagerUtils.getInstance().addActivity(this);
     }
 
     public BaseUtils.XJHander getHandler() {
@@ -122,6 +124,7 @@ public abstract class BaseActivity extends FragmentActivity implements BaseActiv
 
     @Override
     protected void onDestroy() {
+        ActivityManagerUtils.getInstance().finishActivity(this);
         super.onDestroy();
         getHandler().removeCallbacksAndMessages(null);
     }

@@ -18,6 +18,7 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -56,7 +57,10 @@ public class RequestManager implements Observerable {
                 return bitmap.getBytes().length;
             }
         };
-        okHttpClient = new OkHttpClient();
+        okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(10000,TimeUnit.MILLISECONDS)
+                .readTimeout(10000,TimeUnit.MILLISECONDS)
+                .writeTimeout(10000,TimeUnit.MILLISECONDS).build();
     }
 
     /**
