@@ -39,7 +39,6 @@ public abstract class InitializeService extends IntentService {
 
     private void performInit() {
         APPLog.d("performInit begin:" + System.currentTimeMillis());
-        ToastUtils.getInstance().initToast(this);
         //X5内核
         QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
 
