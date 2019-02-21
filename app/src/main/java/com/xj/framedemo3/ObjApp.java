@@ -13,6 +13,7 @@ import com.xj.mainframe.configer.ToastUtils;
 public class ObjApp extends BaseApplication {
     @Override
     public void onCreate() {
+//我就是改了哈哈
         Debug.startMethodTracing("ObjApp");
         super.onCreate();
 //注册提示
