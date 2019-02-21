@@ -11,7 +11,7 @@ import com.xj.mainframe.configer.ToastUtils;
  */
 
 public class ObjApp extends BaseApplication {
-    //test哈哈哈哈
+    //test哈哈哈哈66666666666666
     @Override
     public void onCreate() {
         Debug.startMethodTracing("ObjApp");
