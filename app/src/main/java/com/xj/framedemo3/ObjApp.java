@@ -14,6 +14,7 @@ public class ObjApp extends BaseApplication {
     //test哈哈哈哈66666666666666
     @Override
     public void onCreate() {
+//我就是改了哈哈
         Debug.startMethodTracing("ObjApp");
         super.onCreate();
 //注册提示
